@@ -12,18 +12,14 @@ public class CartPage {
 
     // ЛОКАТОРЫ
     private By backpack = By.xpath("//div[text()='Sauce Labs Backpack']"); // Название товара Backpack.
-    private By bikeLight = By.xpath("//div[text()='Sauce Labs Bike Light']"); // Название товара Bike Light.
-    private By checkout = By.id("checkout"); // Кнопка Checkout.
-    private By continueShopping = By.id("continue-shopping"); // Кнопка Continue Shopping.
-    private By removeBackpack = By.id("remove-sauce-labs-backpack"); // Кнопка Remove у Backpack.
-    private By removeBikeLight = By.id("remove-sauce-labs-bike-light"); // Кнопка Remove у Bike Light.
-
+    private By tShirt = By.xpath("//div[text()='Sauce Labs Bolt T-Shirt']"); // Название товара T-Shirt.
+    private By continueShoppingButton = By.id("continue-shopping"); // Кнопка Continue Shopping.
+    private By removeBackpackButton = By.id("remove-sauce-labs-backpack"); // Кнопка Remove у Backpack.
+    private By removetShirtButton = By.id("remove-sauce-labs-bolt-t-shirt"); // Кнопка Remove у Bike Light.
+    private By checkout = By.id("checkout");
     /*
-
      * Конструктор класса.
-
      * При создании объекта CartPage передаем браузер и ожидание.
-
      */
 
     public CartPage(WebDriver driver, WebDriverWait wait){
@@ -32,6 +28,12 @@ public class CartPage {
 
         this.wait = wait; // Сохраняем ожидание.
 
+    }
+
+    public void checkout() {
+        Allure.step("Нажимаем Checkout");
+        wait.until(ExpectedConditions.elementToBeClickable(checkout));
+        driver.findElement(checkout).click();
     }
 
     /*
@@ -48,57 +50,43 @@ public class CartPage {
         return driver.findElement(backpack).isDisplayed();
     }
     /*
-     * Проверка отображения Bike Light в корзине.
+     * Проверка отображения T-Shirt в корзине.
      * Возвращает true, если товар найден.
      */
-    public boolean isBikeLightDisplayed(){
-        Allure.step("Проверяем наличие Bike Light в корзине");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(bikeLight));
-        return driver.findElement(bikeLight).isDisplayed();
+    public boolean istShirtDisplayed(){
+        Allure.step("Проверяем наличие T-Shirt в корзине");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tShirt));
+        return driver.findElement(tShirt).isDisplayed();
     }
     /*
      * Удаление Backpack из корзины.
      */
     public void removeBackpack(){
         Allure.step("Удаляем Backpack");
-        wait.until(ExpectedConditions.elementToBeClickable(removeBackpack));
-        driver.findElement(removeBackpack).click();
+        wait.until(ExpectedConditions.elementToBeClickable(removeBackpackButton));
+        driver.findElement(removeBackpackButton).click();
+    }
 
+    public boolean isBackpackPresent() {
+        return driver.findElements(backpack).size() > 0;
     }
     /*
-     * Удаление Bike Light из корзины.
+     * Удаление T-Shirt из корзины.
      */
-    public void removeBikeLight(){
+    public void removetShirt(){
         Allure.step("Удаляем Bike Light");
-        wait.until(ExpectedConditions.elementToBeClickable(removeBikeLight));
-        driver.findElement(removeBikeLight).click();
+        wait.until(ExpectedConditions.elementToBeClickable(removetShirtButton));
+        driver.findElement(removetShirtButton).click();
     }
-    /*
-     * Переход к оформлению заказа.
-     */
-    public void checkout(){
-        Allure.step("Нажимаем Checkout");
-        wait.until(ExpectedConditions.elementToBeClickable(checkout));
-        driver.findElement(checkout).click();
-    }
+
     /*
      * Возврат на страницу товаров.
      */
 
     public void continueShopping(){
         Allure.step("Нажимаем Continue Shopping");
-        wait.until(ExpectedConditions.elementToBeClickable(continueShopping));
-        driver.findElement(continueShopping).click();
-
-    }
-
-    /*
-     * Проверяет, что товара больше нет в корзине.
-     * Если элемента нет, метод вернет false.
-     */
-
-    public boolean isBikeLightPresent(){
-        return driver.getPageSource().contains("Sauce Labs Bike Light");
+        wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton));
+        driver.findElement(continueShoppingButton).click();
 
     }
 }

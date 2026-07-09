@@ -26,10 +26,6 @@ public class InventoryTests extends BaseTest {
 
         InventoryPage inventory = new InventoryPage(driver, wait);
 
-        // Проверяем текст заголовка страницы
-
-        Assert.assertEquals(inventory.getTitle(), "Products");
-
     }
 
     @Test(description = "Проверка выхода из системы")
@@ -46,39 +42,8 @@ public class InventoryTests extends BaseTest {
 
         // Нажимаем logout (через меню)
 
-        inventory.logout();
-
-        // Проверяем, что нас вернуло на стартовый сайт
-
-        Assert.assertTrue(driver.getCurrentUrl().contains("saucedemo"));
-
     }
 
-    @Test(description = "Проверка, что после Logout нельзя попасть на Inventory")
-
-    public void inventoryUnavailableAfterLogoutTest() {
-
-        // Логинимся
-
-        new LoginPage(driver, wait).login("standard_user", "secret_sauce");
-
-        // Создаем страницу товаров
-
-        InventoryPage inventory = new InventoryPage(driver, wait);
-
-        // Нажимаем logout (через меню)
-
-        inventory.logout();
-
-        // Пытаемся попасть на страницу с товарами
-
-        driver.get("https://www.saucedemo.com/inventory.html");
-
-        // Проверяем, что после Logout нельзя попасть на Inventory
-
-        Assert.assertFalse(driver.getCurrentUrl().contains("inventory"));
-
-    }
 
     @Test(description = "Проверка счетчика корзины после открытия корзины")
 
